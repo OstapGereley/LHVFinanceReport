@@ -6,20 +6,32 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-  
+	DataContext="{Binding MainPage}"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid VerticalAlignment="Center" HorizontalAlignment="Center"> 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="500" />
         </Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="40"/>
-			<RowDefinition Height="250" />
+			<RowDefinition Height="300" />
 		</Grid.RowDefinitions>
 		<TextBox Name="FilePathBox" IsReadOnly="True" Grid.Column="0" Grid.Row="0" Text="TestContext" VerticalAlignment="Center" />
         <Button Grid.Column="1" Grid.Row="0" Content="..." Click="AddFileButtonClick"/>
-		<GridView Name="MyGrid" Grid.Row="1" />
+		<GridView Name="MyGrid" Grid.Row="1" ItemsSource="{Binding ModelsList}">
+			<GridView.ItemTemplate>
+				<DataTemplate>
+					<Canvas Width="100" Height="20">
+						<TextBlock Text="{Binding Amount}" Width="55"/>
+						<TextBlock Canvas.Left="60" Text="{Binding Currency}" Width="40"/>
+					</Canvas>
+					
+				</DataTemplate>
+			</GridView.ItemTemplate>
+		</GridView>
+
+
 	</Grid>
 </Page>

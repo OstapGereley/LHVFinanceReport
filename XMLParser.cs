@@ -8,7 +8,7 @@ namespace LHVFinanceReport
 {
 	class XMLParser
 	{
-		public async Task<List<T>> ParseFile<T>(StorageFile file) where T : LHVReportModel, new()
+		public async Task<List<T>> ParseFile<T>(StorageFile file) where T : LHVReportModel, new() //add interface for generic
 		{
 			var xmlDoc = new XmlDocument();
 			var xmlContent = await FileIO.ReadTextAsync(file);
@@ -18,16 +18,17 @@ namespace LHVFinanceReport
 
 			for (var i = 0; i < nodes.Count; i++)
 			{
-				var node = nodes[i];
+				var node = nodes[i];				
+				var newModel = new T
+				{
+					Amount = decimal.Parse(node.ChildNodes[0].InnerText),
+					Currency = node.ChildNodes[0].Attributes[0].InnerText,
+					Side = node.ChildNodes[1].InnerText == "CRDT" ? PaymentSide.Credit : PaymentSide.Debit,
+					BookDate = DateTime.Parse(node.ChildNodes[3].InnerText),					 
+					CounterpartyInfo = node.ChildNodes[6].ChildNodes[0].ChildNodes[2].InnerText
 
-				//for (var j = 0; j < node.ChildNodes.Count; j++)
-				//{
-					var newModel = new T
-					{
-						Amount = decimal.Parse(node.ChildNodes[0].InnerText)
-					};
-					resultList.Add(newModel);
-				//}
+				};
+				resultList.Add(newModel);		
 			}
 
 			return resultList;

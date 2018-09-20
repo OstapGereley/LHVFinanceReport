@@ -17,7 +17,7 @@ namespace LHVFinanceReport
 		public List<LHVReportModel> ModelsList { get; set; }
 		public MainPage()
 		{
-			InitializeComponent();			
+			InitializeComponent();
 		}
 
 		private async void AddFileButtonClick(object sender, RoutedEventArgs e)
