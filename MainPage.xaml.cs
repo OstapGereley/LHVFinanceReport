@@ -1,6 +1,8 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
@@ -32,13 +34,15 @@ namespace LHVFinanceReport
 
 			file = await openPicker.PickSingleFileAsync();
 			FilePathBox.Text = file.DisplayName;
-			Parse();
+			await Parse();
+			cvs.Source = ModelsList.GroupBy(x => x.Amount);
 		}
 
-		private async void Parse()
+		private async Task Parse()
 		{
 			var a = new XMLParser();
-			MyGrid.ItemsSource = await a.ParseFile<LHVReportModel>(file);
+			ModelsList = await a.ParseFile<LHVReportModel>(file);
+			
 		}
 
 	
