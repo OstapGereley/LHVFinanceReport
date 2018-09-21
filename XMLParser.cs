@@ -25,8 +25,8 @@ namespace LHVFinanceReport
 					Currency = node.ChildNodes[0].Attributes[0].InnerText,
 					Side = node.ChildNodes[1].InnerText == "CRDT" ? PaymentSide.Credit : PaymentSide.Debit,
 					BookDate = DateTime.Parse(node.ChildNodes[3].InnerText),					 
-					CounterpartyInfo = node.ChildNodes[6].ChildNodes[0].ChildNodes[2].InnerText
-
+					//CounterpartyInfo = node.ChildNodes[6].ChildNodes[0].ChildNodes[2].InnerText,
+					TransactionDateTime = ParseHelper.ParseDate(node.ChildNodes[6].ChildNodes[0].ChildNodes[2].InnerText)
 				};
 				resultList.Add(newModel);		
 			}

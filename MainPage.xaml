@@ -11,7 +11,7 @@
 	<Page.Resources>
 		
 			<local:SideConverter x:Key="SideToBrushConverter" />
-		<CollectionViewSource x:Key="cvs" x:Name="cvs" IsSourceGrouped="True" />
+		<CollectionViewSource x:Key="cvs" x:Name="cvs" IsSourceGrouped="False" />
 	</Page.Resources>
     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch"> 
         <Grid.ColumnDefinitions>
@@ -21,38 +21,36 @@
 		<Grid.RowDefinitions>
 			<RowDefinition Height="40"/>
 			<RowDefinition Height="*" />
+			<RowDefinition Height="40" />
 		</Grid.RowDefinitions>
 		<TextBox Name="FilePathBox" IsReadOnly="True" Grid.Column="0" Grid.Row="0" Text="TestContext" VerticalAlignment="Center" />
-        <Button Grid.Column="1" Grid.Row="0" Content="..." Click="AddFileButtonClick"/>
-		<!--<GridView Name="MyGrid" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding ModelsList}">
-			<GridView.ItemTemplate>
-				<DataTemplate>					
-					<Canvas Width="100" Height="20">
-						<TextBlock Text="{Binding Amount}" Width="55" Foreground="{Binding Side, Converter={StaticResource SideToBrushConverter}}"/>
-						<TextBlock Canvas.Left="60" Text="{Binding Currency}" Width="40" Foreground="{Binding Side, Converter={StaticResource SideToBrushConverter}}"/>
-					</Canvas>				
-				</DataTemplate>
-			</GridView.ItemTemplate>
-		</GridView>-->
+		<Button Grid.Column="1" Grid.Row="0" Content="..." Click="AddFileButtonClick"/>
 		<ListView Name="MyGrid" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Source={StaticResource cvs}}">
 			<ListView.ItemTemplate>
 				<DataTemplate>
-					<Canvas Width="100" Height="20">
-						<TextBlock Text="{Binding Amount}" Width="55" Foreground="{Binding Side, Converter={StaticResource SideToBrushConverter}}"/>
-						<TextBlock Canvas.Left="60" Text="{Binding Currency}" Width="40" Foreground="{Binding Side, Converter={StaticResource SideToBrushConverter}}"/>
-					</Canvas>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="{Binding Amount}" Margin="5" Foreground="{Binding Side, Converter={StaticResource SideToBrushConverter}}"/>
+						<TextBlock Text="{Binding Currency}" Margin="5" Foreground="{Binding Side, Converter={StaticResource SideToBrushConverter}}"/>
+						<TextBlock Text="{Binding TransactionDateTime}" Margin="5"/>
+						<!--<TextBlock Text="{Binding CounterpartyInfo}" />-->
+					</StackPanel>
 				</DataTemplate>
 			</ListView.ItemTemplate>
-			<ListView.GroupStyle>
+			<!--<ListView.GroupStyle>
 				<GroupStyle>
 					<GroupStyle.HeaderTemplate>
 						<DataTemplate>
+							
 						</DataTemplate>
 					</GroupStyle.HeaderTemplate>
 				</GroupStyle>
-			</ListView.GroupStyle>
+			</ListView.GroupStyle>-->
 		</ListView>
-
+		<!--<StackPanel Grid.Row="2" Orientation="Horizontal" >
+			<TextBlock Text="Group By:" Margin="5" VerticalAlignment="Center"/>
+			<ToggleButton Content="Side" Margin="5" Click="Button_Click"/>
+			<Button Content="Counterparty" Margin="5" />
+		</StackPanel>-->
 
 	</Grid>
 </Page>

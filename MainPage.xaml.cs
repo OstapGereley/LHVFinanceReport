@@ -7,6 +7,7 @@ using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 
 namespace LHVFinanceReport
 {
@@ -35,7 +36,7 @@ namespace LHVFinanceReport
 			file = await openPicker.PickSingleFileAsync();
 			FilePathBox.Text = file.DisplayName;
 			await Parse();
-			cvs.Source = ModelsList.GroupBy(x => x.Amount);
+			cvs.Source = ModelsList; //.GroupBy(x => x.Amount);
 		}
 
 		private async Task Parse()
@@ -45,6 +46,18 @@ namespace LHVFinanceReport
 			
 		}
 
-	
+		//private void Button_Click(object sender, RoutedEventArgs e)
+		//{
+		//	if (sender is ToggleButton button && button.IsChecked.Value)
+		//	{
+		//		cvs.IsSourceGrouped = true;
+		//		cvs.Source = ModelsList.GroupBy(x => x.Side);
+		//	}
+		//	else
+		//	{
+		//		cvs.IsSourceGrouped = false;
+		//		cvs.Source = ModelsList;
+		//	}
+		//}
 	}
 }
